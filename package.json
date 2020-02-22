@@ -1,6 +1,6 @@
 {
 	"name": "@command-socket/node-client",
-	"version": "0.4.1",
+	"version": "0.4.2",
 	"description": "An implementation of a CommandSocket client written for NodeJS.",
 	"publishConfig": {
 		"access": "public"

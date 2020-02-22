@@ -33,18 +33,20 @@ export class CommandSocketNodeClient<
 		
 	}
 	
-	public static create<LCS extends CommandSetStructure, RCS extends CommandSetStructure>(
-		url: string, commandRegistry?: CommandRegistry<LCS>): Promise<CommandSocket<LCS, RCS>>;
+	public static create<LCS extends CommandSetStructure, RCS extends CommandSetStructure, M extends {} = {}>(
+		url: string, commandRegistry?: CommandRegistry<LCS>, metadata?: Partial<M>): Promise<CommandSocket<LCS, RCS>>;
 	
-	public static create<LCS extends CommandSetStructure, RCS extends CommandSetStructure>(
-		websocket: WebSocket, commandRegistry?: CommandRegistry<LCS>): Promise<CommandSocket<LCS, RCS>>;
+	public static create<LCS extends CommandSetStructure, RCS extends CommandSetStructure, M extends {} = {}>(
+		websocket: WebSocket, commandRegistry?: CommandRegistry<LCS>, metadata?: Partial<M>): Promise<CommandSocket<LCS, RCS>>;
 	
-	public static create<LCS extends CommandSetStructure, RCS extends CommandSetStructure>(urlOrWebSocket: string | WebSocket,
-					   commandRegistry: CommandRegistry<LCS> = new CommandRegistry<LCS>()): Promise<CommandSocket<LCS, RCS>> {
+	public static create<LCS extends CommandSetStructure, RCS extends CommandSetStructure, M extends {} = {}>(
+		urlOrWebSocket: string | WebSocket,
+		commandRegistry: CommandRegistry<LCS> = new CommandRegistry<LCS>(),
+		metadata: Partial<M> = {}): Promise<CommandSocket<LCS, RCS>> {
 		
-		return new Promise<CommandSocket<LCS, RCS>>((resolve: (value?: (PromiseLike<CommandSocket<LCS, RCS>> | CommandSocket<LCS, RCS>)) => void): void => {
+		return new Promise<CommandSocket<LCS, RCS, M>>((resolve: (value?: (PromiseLike<CommandSocket<LCS, RCS, M>> | CommandSocket<LCS, RCS, M>)) => void): void => {
 			
-			let commandsocket: CommandSocket<LCS, RCS> = new CommandSocketNodeClient(urlOrWebSocket as any, commandRegistry);
+			let commandsocket: CommandSocket<LCS, RCS, M> = new CommandSocketNodeClient(urlOrWebSocket as any, commandRegistry, metadata);
 			
 			commandsocket.getEvents().OPEN.subscribe((): void => resolve(commandsocket));
 			
