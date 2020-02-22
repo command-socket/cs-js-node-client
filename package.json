@@ -41,7 +41,7 @@
 		"typescript": "latest"
 	},
 	"dependencies": {
-		"@command-socket/core": "file:../cs-js-core",
+		"@command-socket/core": "^0.2.0",
 		"promise-any-polyfill": "^0.1.2",
 		"ws": "^7.2.0"
 	}
