@@ -21,14 +21,15 @@ import { NodeWebSocket } from "./node-websocket";
  */
 export class CommandSocketNodeClient<
 	LCS extends CommandSetStructure = any,
-	RCS extends CommandSetStructure = any> extends CommandSocket<LCS, RCS> {
+	RCS extends CommandSetStructure = any,
+	M extends {} = {}> extends CommandSocket<LCS, RCS, M> {
 	
-	protected constructor(url: string, commandRegistry?: CommandRegistry<LCS>);
-	protected constructor(websocket: WebSocket, commandRegistry?: CommandRegistry<LCS>);
+	protected constructor(url: string, commandRegistry?: CommandRegistry<LCS>, metadata?: Partial<M>);
+	protected constructor(websocket: WebSocket, commandRegistry?: CommandRegistry<LCS>, metadata?: Partial<M>);
 	protected constructor(urlOrWebSocket: string | WebSocket,
-					   commandRegistry: CommandRegistry<LCS> = new CommandRegistry<LCS>()) {
+					   commandRegistry: CommandRegistry<LCS> = new CommandRegistry<LCS>(), metadata: Partial<M> = {}) {
 		
-		super(new NodeWebSocket(urlOrWebSocket as any), commandRegistry);
+		super(new NodeWebSocket(urlOrWebSocket as any), commandRegistry, metadata);
 		
 	}
 	
